@@ -12,3 +12,6 @@ function business_theme_setup(){
 }
 
 add_action('after_setup_theme', 'business_theme_setup');
+
+// Customizer
+require get_template_directory() . '/inc/customizer.php';
