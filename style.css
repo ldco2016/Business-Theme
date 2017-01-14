@@ -54,6 +54,7 @@ footer {
 
 article.post img {
 	width: 100%;
+	height: auto;
 }
 
 .block {
@@ -144,6 +145,7 @@ article.post img {
 	color: #ffffff;
 	padding-bottom: 10px;
 	border-bottom: 6px #ddd solid;
+	margin-bottom: 20px;
 }
 
 article.post {
@@ -169,8 +171,25 @@ article.post .meta li {
 
 article.post img {
 	width: 100%;
+	height: auto;
 	margin-bottom: 20px;
 }
 
+.panel-heading {
+   background: #0faf97 !important;
+   color: #fff !important
+}
 
+.sidebar-widget ul {
+  padding: 0 !important;
+  list-style: none;
+}
 
+.sidebar-widget li {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}

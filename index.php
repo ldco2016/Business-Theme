@@ -1,66 +1,76 @@
 <?php get_header(); ?>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Sign up today</a></p>
+
+  <section class="row title-bar">
+    <div class="container">
+      <div class="col-md-12">
+        <h1><?php echo __('Blog'); ?></h1>
       </div>
     </div>
-    
-    <section class="row marketing">
-      <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="block">
-            <i class="fa fa-bar-chart fa-3"></i>
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="block">
-            <i class="fa fa-code fa-3"></i>
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          </div>
-       </div>
-        <div class="col-md-4">
-          <div class="block">
-            <i class="fa fa-desktop fa-3"></i>
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    
+  </section>    
 
-      <section class="row content-region-1 pt50 pb40">
-        <div class="container">
-          <div class="col-md-12">
-            <h1>Clean Bootstrap WordPress Theme</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore in nesciunt esse deleniti assumenda quia facilis aliquid inventore veniam doloremque saepe, velit quisquam quos, vel dignissimos quae itaque nobis, reiciendis.</p>
-          </div>
-        </div>
-      </section>
+  <section class="row main">
+    <div class="container">
+      <?php if(is_active_sidebar('sidebar')) : ?>
+	<div class="col-md-8">
+      <?php else : ?>
+	<div class="col-md-12">
+      <?php endif; ?>
+	<?php if(have_posts()) : ?>
+          <?php while(have_posts()) : the_post(); ?>
+            <article class="post">
+              <div class="col-md-5">
+                <div class="post_thumbnail">
+                  <?php if(has_post_thumbnail()): ?>
+		    <?php the_post_thumbnail(); ?>
+                  <?php endif; ?>
+                </div>
+               <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-block">
+		<?php echo __('Read More'); ?>
+	       </a>
+              </div>
+	      <div class="col-md-7">
+   		<ul class="meta">
+		  <li>By <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>"><?php the_author(); ?></a></li>
+		  <li><?php the_time('F j, Y g:i a'); ?></li>
+		  <li>
+		    <?php
+			$categories = get_the_category();
+			$separator  = ", ";
+			$output	    = '';
 
-      <section class="row content-region-2 pt40 pb40">
-        <div class="container">
-          <div class="col-md-5">
-            <img src="img/pic1.jpg">
-          </div>
-          <div class="col-md-7">
-            <h3>Theme Features</h3>
-            <div class="list-group">
-              <li class="list-group-item"><i class="fa fa-check" aria-hidden="true"></i> Clean Code</li>
-              <li class="list-group-item"><i class="fa fa-check" aria-hidden="true"></i> Custom Showcase Area</li>
-              <li class="list-group-item"><i class="fa fa-check" aria-hidden="true"></i> Bootstrap 3 Framework</li>
-              <li class="list-group-item"><i class="fa fa-check" aria-hidden="true"></i> Multiple Color Choices</li>
-            </div>
-          </div>
+			if($categories){
+			  foreach($categories as $category){
+			     $output .= '<a href="'.get_category_link($category->term_id).'">'.$category->cat_name .'</a>'.$separator;
+			     //$output .= $category->cat_name . $separator;
+			  }
+			}
+			echo trim($output, $separator);
+		    ?>
+		  </li>
+		</ul>
+		<h3><?php the_title(); ?></h3>
+		<?php the_excerpt(); ?>
+  	      </div>
+            </article>
+          <?php endwhile; ?>
+        <?php endif; ?>
         </div>
-      </section>
+        <?php if(is_active_sidebar('sidebar')) : ?>
+          <div class="col-md-4">
+	   <?php dynamic_sidebar('sidebar'); ?>
+          </div>
+        <?php endif; ?>
+
+    </div>
+  </section>
+    
+      <?php if(is_active_sidebar('content-region-1')) : ?>
+	<?php dynamic_sidebar('content-region-1'); ?>	
+      <?php endif; ?>
+
+      <?php if(is_active_sidebar('content-region-2')) : ?>
+	<?php dynamic_sidebar('content-region-2'); ?>	
+      <?php endif; ?>
+
      <?php get_footer(); ?>
 
