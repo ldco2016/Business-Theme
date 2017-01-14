@@ -12,6 +12,11 @@
     <link href="<?php bloginfo('template_url'); ?>/css/font-awesome.css" rel="stylesheet">
     <link href="<?php bloginfo('stylesheet_url'); ?>" rel="stylesheet">
     <?php wp_head(); ?>
+     <style>
+       .jumbotron {
+	 background:url(<?php echo get_theme_mod('banner_image', get_bloginfo('template_url').'/img/banner.jpg'); ?>) 0 -80px;	
+       }
+     </style>
   </head>
 
   <body <?php body_class(); ?>>
